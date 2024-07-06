@@ -9,7 +9,15 @@ import (
 )
 
 func main() {
-    // Abra o repositório
+
+	oneDay := time.Hour * 24
+
+	initialDate, err := time.Parse("2006-01-02 15:04:05", "2024-07-06 12:00:00")
+    if err != nil {
+        fmt.Println("Error getting commit date:", err)
+        return
+    }
+	// Abra o repositório
     repo, err := git.PlainOpen(".") // "." indica o diretório atual
     if err != nil {
         fmt.Println("Erro ao abrir o repositório:", err)
@@ -30,7 +38,6 @@ func main() {
         return
     }
 
-	commitDate, err := time.Parse("2006-01-02 15:04:05", "2024-07-07 12:00:00")
     if err != nil {
         fmt.Println("Error getting commit date:", err)
         return
@@ -42,8 +49,22 @@ func main() {
         Author: &object.Signature{
             Name:  "Paulo Evangelista",
             Email: "paulo.evangelista@sou.inteli.edu.br",
-            When:  commitDate,
+            When:  initialDate,
         },
+    })
+    if err != nil {
+        fmt.Println("Erro ao commitar:", err)
+        return
+    }
+
+	commitMsg = ":("
+    _, err = worktree.Commit(commitMsg, &git.CommitOptions{
+        Author: &object.Signature{
+            Name:  "Paulo Evangelista",
+            Email: "paulo.evangelista@sou.inteli.edu.br",
+            When: initialDate.Add(-oneDay),
+        },
+		AllowEmptyCommits: true,
     })
     if err != nil {
         fmt.Println("Erro ao commitar:", err)
