@@ -40,8 +40,8 @@ func main() {
     commitMsg := ":)"
     _, err = worktree.Commit(commitMsg, &git.CommitOptions{
         Author: &object.Signature{
-            Name:  "Seu Nome",
-            Email: "seu.email@example.com",
+            Name:  "Paulo Evangelista",
+            Email: "paulo.evangelista@sou.inteli.edu.br",
             When:  commitDate,
         },
     })
